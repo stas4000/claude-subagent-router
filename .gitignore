@@ -1,0 +1,14 @@
+# the pick ledger and any other JSONL the router writes
+.router/
+*.jsonl
+
+# secrets
+.env
+.env.*
+
+# local Claude Code settings
+.claude/settings.local.json
+
+# python
+__pycache__/
+*.pyc
