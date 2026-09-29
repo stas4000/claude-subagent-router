@@ -66,6 +66,9 @@ class RulesPickerTest(unittest.TestCase):
         self.assertEqual(got["picked"], OPUS)
         got = self.rules("Never let two workers publish twice: fix the race.")
         self.assertEqual(got["picked"], OPUS)
+        # A "never" inside the sentence describes the change itself, it is not a warning to the builder.
+        self.assertEqual(self.rules("Add a guard so we never send a DM to a blocked user.")["picked"], OPUS)
+        self.assertEqual(self.rules("Make the job never run two copies at once (use a lock file).")["picked"], OPUS)
 
     def test_the_description_counts_too(self):
         self.assertEqual(self.rules("Small change.", description="Fix billing bug")["picked"], OPUS)

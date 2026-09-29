@@ -172,8 +172,9 @@ def ask_jev(ctx: dict) -> dict:
 # --- backend 2: offline rules -----------------------------------------------------------------------
 
 #: Etiquette in a brief is not risk ("do not restart", "never send anything"): the clause is dropped first.
+#: Only a warning that opens a sentence or clause counts; "add a guard so we never send a DM" is the change.
 _ETIQUETTE = re.compile(
-    r"\b(?:do not|don't|dont|never|must not|mustn't|without|no)\s+(?:git\s+)?"
+    r"(?:^|(?<=[.;:,!?(\n]))\s*\b(?:do not|don't|dont|never|must not|mustn't|without|no)\s+(?:git\s+)?"
     r"(?:restart|deploy|send|publish|post|push|commit|touch|revert|reset|checkout|stash|reformat|install|print|"
     r"copy|log|paste|echo|use|run|delete|remove|open|call|trigger|register)\w*\b[^.;:\n]*", re.I)
 
