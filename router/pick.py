@@ -181,7 +181,7 @@ _ETIQUETTE = re.compile(
 #: Sonnet on shared state costs a broken path.
 _OPUS_RULES = {
     "sends-for-someone": (
-        r"\b(?:publisher|publishing engine|auto-?repl(?:y|ies)|outreach|inbox (?:engine|automation|sender)|autoposter"
+        r"\b(?:publisher|publishing engine|auto-?repl(?:y|ies)|outreach|inbox (?:engine|automation|sender)"
         r"|mailer|newsletters?)\b"
         r"|\b(?:send|sends|sending|compose|composes|composing|publish|publishes|publishing)\s+(?:\w+\s+){0,3}?"
         r"(?:emails?|messages?|posts?|dms?|notifications?|sms|replies)\b"),
