@@ -66,7 +66,7 @@ Use s55-scout to find code.
 5. **The lead's pick stands** when neither backend answers, or when the pick is an agent the running session cannot know (an agent file added after Claude Code started fails with "Agent type not found").
 6. The guard checks the agent that will run (next section).
 7. The call is rewritten to run in the foreground. A lead that hands work to a background sub-agent and then ends its turn loses that work: in print mode the sub-agent's notification arrives after the lead's final result and never wakes it. Parallel Agent calls in one message still run concurrently. Set `ROUTER_FOREGROUND=0` to turn this off.
-8. One line goes to the ledger, `.router/picks.jsonl` (override with `ROUTER_LEDGER`): time, session, tool call, the agent asked for, the agent picked, which backend answered (`jev`, `rules` or `lead`), probability, seconds, cost, and why Jev did not answer. The brief text is never written to it.
+8. One line goes to the ledger, `.router/picks.jsonl` under `$CLAUDE_PROJECT_DIR` (else under this repo; override with `ROUTER_LEDGER`): time, session, tool call, the agent asked for, the agent picked, which backend answered (`jev`, `rules` or `lead`), probability, seconds, cost, and why Jev did not answer. It holds the call's short `description` but never the brief text.
 
 The hook prints a PreToolUse decision (`hookSpecificOutput` with `permissionDecision`, `permissionDecisionReason` and, for an allow, `updatedInput`) or nothing when the call needs no change. It never fails a tool call: malformed input exits 0 with no output.
 
@@ -91,7 +91,7 @@ It reads the agent file, so it cannot see an effort set somewhere else at run ti
 ## Report
 
 ```
-python3 router/report.py            # reads .router/picks.jsonl (or ROUTER_LEDGER)
+python3 router/report.py            # reads the default ledger (or ROUTER_LEDGER)
 python3 router/report.py path.jsonl # another ledger
 python3 router/report.py --json     # the same numbers as JSON
 ```
@@ -106,7 +106,7 @@ It prints the picks per profile, the share that went to Sonnet, who answered (Je
 | `JEV_URL` | `https://api.typesafe.ai/v1/systemone` | must be `https` |
 | `JEV_MODEL` | `jev-latest` | model name sent to Jev |
 | `JEV_PRICE_PER_MTOK` | `0.042` | USD per million input tokens, for the cost column |
-| `ROUTER_LEDGER` | `.router/picks.jsonl` | where the pick ledger is written |
+| `ROUTER_LEDGER` | `$CLAUDE_PROJECT_DIR/.router/picks.jsonl` | where the pick ledger is written |
 | `ROUTER_AGENTS_DIR` | unset | look for agent files only here |
 | `ROUTER_FOREGROUND` | on | `0` leaves `run_in_background` alone |
 
